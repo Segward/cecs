@@ -93,11 +93,6 @@ void *_cecs_get(EntityId e, const char *type_name) {
   return (char *)p->data + p->sparse[e] * p->stride;
 }
 
-int _cecs_has(EntityId e, const char *type_name) {
-  _cecs_pool_t *p = _cecs_find_pool(type_name);
-  return p && e < CECS_MAX_ENTITIES && p->sparse[e] != CECS_INVALID;
-}
-
 unsigned _cecs_query(const char *type_name, void **out, EntityId *out_ents, unsigned cap) {
   _cecs_pool_t *p = _cecs_find_pool(type_name);
   if (!p) return 0;
@@ -108,12 +103,6 @@ unsigned _cecs_query(const char *type_name, void **out, EntityId *out_ents, unsi
     n++;
   }
   return n;
-}
-
-void *_cecs_query_one(const char *type_name) {
-  _cecs_pool_t *p = _cecs_find_pool(type_name);
-  if (!p || p->count == 0) return NULL;
-  return p->data;
 }
 
 void cecs_run(void) {

@@ -40,15 +40,6 @@ update({
   }
 })
 
-update({
-  query(count, Size, size, Player, ply);
-  for (unsigned i = 0; i < count; i++) {
-    printf("player %s\n", ply[i]->name);
-    printf("size %.1f %.1f\n", size[i]->w, size[i]->h);
-    size[i]->h += 2.0f;
-  }
-})
-
 int main(void) {
   cecs_run();
   return 0;
