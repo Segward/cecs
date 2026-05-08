@@ -8,22 +8,22 @@
 #define CECS_INVALID ((unsigned)-1)
 
 cecs_fun_t _cecs_startup_funs[CECS_MAX_FUNS];
-unsigned   _cecs_startup_count = 0;
+unsigned _cecs_startup_count = 0;
 cecs_fun_t _cecs_update_funs[CECS_MAX_FUNS];
-unsigned   _cecs_update_count = 0;
+unsigned _cecs_update_count = 0;
 
 typedef struct {
   const char *type_name;
-  size_t      stride;
-  unsigned    count;
-  void       *data;
-  unsigned   *dense_to_entity;
-  unsigned   *sparse;
+  size_t stride;
+  unsigned count;
+  void *data;
+  unsigned *dense_to_entity;
+  unsigned *sparse;
 } _cecs_pool_t;
 
 static _cecs_pool_t _cecs_pools[CECS_MAX_COMPONENTS];
-static unsigned     _cecs_pool_count = 0;
-static unsigned     _cecs_next_id = 0;
+static unsigned _cecs_pool_count = 0;
+static unsigned _cecs_next_id = 0;
 
 static _cecs_pool_t *_cecs_find_pool(const char *type_name) {
   for (unsigned i = 0; i < _cecs_pool_count; i++) {
@@ -42,12 +42,12 @@ static _cecs_pool_t *_cecs_get_or_create_pool(const char *type_name, size_t stri
     exit(1);
   }
   p = &_cecs_pools[_cecs_pool_count++];
-  p->type_name       = type_name;
-  p->stride          = stride;
-  p->count           = 0;
-  p->data            = calloc(CECS_MAX_PER_TYPE, stride);
+  p->type_name = type_name;
+  p->stride = stride;
+  p->count = 0;
+  p->data = calloc(CECS_MAX_PER_TYPE, stride);
   p->dense_to_entity = calloc(CECS_MAX_PER_TYPE, sizeof(unsigned));
-  p->sparse          = malloc(CECS_MAX_ENTITIES * sizeof(unsigned));
+  p->sparse = malloc(CECS_MAX_ENTITIES * sizeof(unsigned));
   if (!p->data || !p->dense_to_entity || !p->sparse) {
     fprintf(stderr, "cecs: failed to allocate pool for %s\n", type_name);
     exit(1);

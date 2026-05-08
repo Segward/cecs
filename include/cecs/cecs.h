@@ -3,40 +3,40 @@
 
 #include <stddef.h>
 
-#define CECS_MAX_FUNS       256
+#define CECS_MAX_FUNS 256
 #define CECS_MAX_COMPONENTS 256
-#define CECS_MAX_PER_TYPE   1024
-#define CECS_MAX_ENTITIES   1024
+#define CECS_MAX_PER_TYPE 1024
+#define CECS_MAX_ENTITIES 1024
 
 typedef unsigned EntityId;
 typedef void (*cecs_fun_t)(void);
 
 extern cecs_fun_t _cecs_startup_funs[CECS_MAX_FUNS];
-extern unsigned   _cecs_startup_count;
+extern unsigned _cecs_startup_count;
 extern cecs_fun_t _cecs_update_funs[CECS_MAX_FUNS];
-extern unsigned   _cecs_update_count;
+extern unsigned _cecs_update_count;
 
 EntityId _cecs_spawn(void);
-void    *_cecs_add(EntityId e, const char *type_name, size_t size);
-void    *_cecs_get(EntityId e, const char *type_name);
+void *_cecs_add(EntityId e, const char *type_name, size_t size);
+void *_cecs_get(EntityId e, const char *type_name);
 unsigned _cecs_query(const char *type_name, void **out, EntityId *out_ents, unsigned cap);
-void     cecs_run(void);
+void cecs_run(void);
 
 #define _CECS_PASTE2(a, b) a##b
-#define _CECS_PASTE(a, b)  _CECS_PASTE2(a, b)
+#define _CECS_PASTE(a, b) _CECS_PASTE2(a, b)
 
 #define _CECS_NARGS(...) \
   _CECS_NARGS_(__VA_ARGS__, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
 #define _CECS_NARGS_(_1, _2, _3, _4, _5, _6, _7, _8, _9, N, ...) N
 
-#define _CECS_FE_1(M, T)       M(T)
-#define _CECS_FE_2(M, T, ...)  M(T) _CECS_FE_1(M, __VA_ARGS__)
-#define _CECS_FE_3(M, T, ...)  M(T) _CECS_FE_2(M, __VA_ARGS__)
-#define _CECS_FE_4(M, T, ...)  M(T) _CECS_FE_3(M, __VA_ARGS__)
-#define _CECS_FE_5(M, T, ...)  M(T) _CECS_FE_4(M, __VA_ARGS__)
-#define _CECS_FE_6(M, T, ...)  M(T) _CECS_FE_5(M, __VA_ARGS__)
-#define _CECS_FE_7(M, T, ...)  M(T) _CECS_FE_6(M, __VA_ARGS__)
-#define _CECS_FE_8(M, T, ...)  M(T) _CECS_FE_7(M, __VA_ARGS__)
+#define _CECS_FE_1(M, T) M(T)
+#define _CECS_FE_2(M, T, ...) M(T) _CECS_FE_1(M, __VA_ARGS__)
+#define _CECS_FE_3(M, T, ...) M(T) _CECS_FE_2(M, __VA_ARGS__)
+#define _CECS_FE_4(M, T, ...) M(T) _CECS_FE_3(M, __VA_ARGS__)
+#define _CECS_FE_5(M, T, ...) M(T) _CECS_FE_4(M, __VA_ARGS__)
+#define _CECS_FE_6(M, T, ...) M(T) _CECS_FE_5(M, __VA_ARGS__)
+#define _CECS_FE_7(M, T, ...) M(T) _CECS_FE_6(M, __VA_ARGS__)
+#define _CECS_FE_8(M, T, ...) M(T) _CECS_FE_7(M, __VA_ARGS__)
 #define _CECS_FOREACH(M, ...) \
   _CECS_PASTE(_CECS_FE_, _CECS_NARGS(__VA_ARGS__))(M, __VA_ARGS__)
 
