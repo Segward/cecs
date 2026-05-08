@@ -1,5 +1,7 @@
 build/
 *.o
-cecs
+/cecs
 a.out
 compile_commands.json
+.*
+!.gitignore
