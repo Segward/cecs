@@ -9,4 +9,6 @@ file(GLOB CECS_SOURCES CONFIGURE_DEPENDS src/*.c)
 add_executable(cecs ${CECS_SOURCES})
 
 target_include_directories(cecs PUBLIC include)
-target_compile_options(cecs PRIVATE -Wall -Wextra -Wpedantic)
+if(CMAKE_C_COMPILER_ID MATCHES "GNU|Clang")
+  target_compile_options(cecs PRIVATE -Wall -Wextra -Wpedantic)
+endif()

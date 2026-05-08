@@ -1,5 +1,5 @@
-#include <stdio.h>
 #include <cecs/cecs.h>
+#include <stdio.h>
 
 typedef struct { float x; float y; } Position;
 typedef struct { float w; float h; } Size;
@@ -26,9 +26,9 @@ startup({
 })
 
 update({
-  query(count, Position, pos, Player, ply);
+  query(count, Position, pos, Player, player);
   for (unsigned i = 0; i < count; i++) {
-    printf("player %s\n", ply[i]->name);
+    printf("player %s\n", player[i]->name);
     printf("position %.1f %.1f\n", pos[i]->x, pos[i]->y);
     pos[i]->x += 1.0f;
   }
