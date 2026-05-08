@@ -1,3 +1,5 @@
+#define CECS_IMPLEMENTATION
+#define CECS_CALLBACKS
 #include <cecs/cecs.h>
 #include <stdio.h>
 
@@ -6,7 +8,7 @@ typedef struct { float w; float h; } Size;
 typedef struct { char *name; } Player;
 typedef struct { char *name; } Camera;
 
-startup({
+cecs_init({
   spawn(
     component(Position, .x = 1.0f),
     component(Size, .w = 10.0f, .h = 10.0f),
@@ -25,7 +27,7 @@ startup({
   );
 })
 
-update({
+cecs_update({
   query(count, Position, pos, Player, player);
   for (unsigned i = 0; i < count; i++) {
     printf("player %s\n", player[i]->name);
@@ -40,7 +42,6 @@ update({
   }
 })
 
-int main(void) {
-  cecs_run();
-  return 0;
-}
+cecs_exit({
+  printf("cecs exit\n");
+})
